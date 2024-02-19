@@ -12,7 +12,7 @@ export default function Footer() {
       <div className="flex items-center gap-2">
         © 2024 All rights reserved.
         <a
-          className="cursor-pointer text-indigo-500"
+          className="cursor-pointer text-blue-500 hover:underline"
           href="https://github.com/Torelli/blog-pessoal-front"
           target="_blank"
         >
