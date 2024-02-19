@@ -3,8 +3,35 @@
 @tailwind utilities;
 
 #root {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    gap: 8rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rem;
+}
+
+#postlab {
+  -webkit-text-fill-color: transparent;
+}
+
+span#postlab:hover {
+  -webkit-text-fill-color: white;
+}
+
+.icon:hover {
+  -webkit-text-fill-color: transparent;
+}
+
+.item1 {
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.item2 {
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start: 1;
+  grid-column-end: 1;
 }
