@@ -6,9 +6,11 @@ export default function Footer() {
         <h2>Relli's Blog</h2>
       </div>
       <ul className="flex items-center justify-center gap-2">
-        <li>Home</li>
-        <li>About</li>
-        <li>Blog</li>
+        <li>Posts</li>
+        <li>Themes</li>
+        <li>New theme</li>
+        <li>Profile</li>
+        <li>Sign out</li>
       </ul>
       <div>
         © 2024 All rights reserved.
