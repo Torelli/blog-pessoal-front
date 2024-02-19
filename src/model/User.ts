@@ -2,9 +2,9 @@ import Post from "./Post";
 
 export default interface User {
     id: number;
-    name: string;
-    email: string;
-    picture: string;
-    password: string;
+    nome: string;
+    usuario: string;
+    foto: string;
+    senha: string;
     post?: Post | null;
 }
