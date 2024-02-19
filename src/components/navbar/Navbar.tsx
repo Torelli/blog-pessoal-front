@@ -20,8 +20,8 @@ export default function Navbar() {
             Home
           </NavLink>
         </li>
-        <li>Themes</li>
-        <li>New theme</li>
+        <li>Categories</li>
+        <li>New category</li>
         <li>Profile</li>
         <NavLink
             to={"/login"}
