@@ -4,8 +4,10 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Root from "./components/root/Root.tsx";
 import Home from "./pages/Home.tsx";
-import Login from "./pages/Login.tsx";
-import SignUp, { createNewUser } from "./pages/SignUp.tsx";
+import Credentials from "./pages/Credentials.tsx";
+import SignUpForm, { createNewUser } from "./components/forms/SignUpForm.tsx";
+import LoginForm, { loginAction } from "./components/forms/LoginForm.tsx";
+import AuthProvider from "./components/authProvider/AuthProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,20 +16,27 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       {
-        path: "/login",
-        element: <Login />,
+        element: <Credentials />,
+        children: [
+          {
+            path: "/login",
+            element: <LoginForm />,
+          },
+          {
+            path: "/sign-up",
+            element: <SignUpForm />,
+            action: createNewUser,
+          },
+        ],
       },
-      {
-        path:"/sign-up",
-        element: <SignUp />,
-        action: createNewUser
-      }
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

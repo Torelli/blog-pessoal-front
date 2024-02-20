@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Home() {
   return (
     <div className="w-full py-12 flex flex-col justify-center items-center gap-2">

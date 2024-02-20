@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AuthProviderProps from "../../model/AuthProviderProps";
 import UserLogin from "../../model/UserLogin";
 import { login } from "../../service/UserService";
@@ -25,7 +25,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     } catch (error) {
       console.log(error);
       alert("Inconsistent user data");
-      setIsLoading(true);
+      setIsLoading(false);
     }
   }
 
