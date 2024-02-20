@@ -33,6 +33,7 @@ export default function Credentials() {
           {isLoading ||
           navigation.state === "loading" ||
           navigation.state === "submitting" ? (
+            <div className={`${location.pathname == "/login" && "mt-52"}`}>
               <MutatingDots
                 visible={true}
                 height="100"
@@ -44,6 +45,7 @@ export default function Credentials() {
                 wrapperStyle={{}}
                 wrapperClass=""
               />
+            </div>
           ) : (
             <i
               className={`fa-solid fa-flask text-8xl pb-1 ${
