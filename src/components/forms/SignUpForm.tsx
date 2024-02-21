@@ -1,5 +1,5 @@
 import { Form, redirect } from "react-router-dom";
-import { createUser } from "../../service/UserService";
+import { createUser } from "../../service/Service";
 import User from "../../model/User";
 
 export async function createNewUser({ request }) {
