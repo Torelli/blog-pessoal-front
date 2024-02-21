@@ -17,14 +17,16 @@ export default function Navbar() {
       onClick={(event) => event.stopPropagation()}
       className="flex flex-col items-start w-full z-50 fixed text-gray-800 bg-white border-b border-b-gray-200 md:py-0 md:flex-row md:items-start md:justify-between drop-shadow"
     >
-      <Link to="/" className="w-full self-stretch px-8 py-4 flex justify-between md:py-0 md:w-auto">
-        <h1
-          id="postlab"
-          className="flex md:gap-2 md:p-4 items-end font-extrabold cursor-pointer bg-gradient-to-br from-blue-500 to-fuchsia-600 bg-clip-text"
-        >
-          <i className="fa-solid fa-flask text-3xl pb-1"></i>
-          <span className="text-2xl">Postlab</span>
-        </h1>
+      <div className="w-full self-stretch px-8 py-4 flex justify-between md:py-0 md:w-auto">
+        <Link to="/">
+          <h1
+            id="postlab"
+            className="flex md:gap-2 md:p-4 items-end font-extrabold cursor-pointer bg-gradient-to-br from-blue-500 to-fuchsia-600 bg-clip-text"
+          >
+            <i className="fa-solid fa-flask text-3xl pb-1"></i>
+            <span className="text-2xl">Postlab</span>
+          </h1>
+        </Link>
         <button
           onClick={() => {
             setIsOpen(true);
@@ -42,7 +44,7 @@ export default function Navbar() {
         >
           <i className="fa-solid fa-xmark fa-lg"></i>
         </button>
-      </Link>
+      </div>
       <div
         className={`flex flex-col self-stretch ${
           isOpen ? "max-h-screen" : "max-h-0"

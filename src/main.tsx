@@ -8,6 +8,7 @@ import Credentials from "./pages/Credentials.tsx";
 import SignUpForm, { createNewUser } from "./components/forms/SignUpForm.tsx";
 import LoginForm, { loginAction } from "./components/forms/LoginForm.tsx";
 import AuthProvider from "./components/authProvider/AuthProvider.tsx";
+import Categories from "./pages/Categories.tsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path:"/categories",
+        element: <Categories />
+      }
     ],
   },
 ]);

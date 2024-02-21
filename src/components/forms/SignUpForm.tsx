@@ -1,6 +1,5 @@
-import { Form, redirect, useNavigation } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import { createUser } from "../../service/UserService";
-import { MutatingDots } from "react-loader-spinner";
 import User from "../../model/User";
 
 export async function createNewUser({ request }) {
@@ -60,8 +59,7 @@ export default function SignUpForm() {
             />
           </div>
         </div>
-        <div>
-        </div>
+        <div></div>
         <div>
           <div>
             <label
