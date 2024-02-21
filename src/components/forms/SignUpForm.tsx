@@ -23,8 +23,8 @@ export async function createNewUser({ request }) {
 
 export default function SignUpForm() {
   return (
-    <div className="py-6 pl-[40%] pr-8 col-start-2 col-end-4 row-start-1 z-30">
-      <Form method="post" className="flex flex-col gap-4">
+    <div className="flex flex-col min-w-96 py-6 px-6 z-30 col-start-1 col-end-1 row-start-2 row-end-4 md:pl-[40%] md:pr-8 md:col-start-2 md:col-end-4 md:row-start-1">
+      <Form method="post" className="flex flex-col gap-4 pt-14 md:pt-8">
         <div>
           <div>
             <label
@@ -61,21 +61,6 @@ export default function SignUpForm() {
           </div>
         </div>
         <div>
-          <div>
-            <label
-              htmlFor="foto"
-              className="block mb-2 text-sm font-medium text-gray-900"
-            >
-              Picture url
-            </label>
-            <input
-              type="text"
-              id="foto"
-              name="foto"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="url"
-            />
-          </div>
         </div>
         <div>
           <div>

@@ -21,7 +21,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (user.token !== "") {
-      navigate('/');
+      navigate("/");
     }
   }, [user, navigate]);
 
@@ -38,8 +38,8 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col justify-center py-6 pl-[40%] pr-8 col-start-2 col-end-4 row-start-1 z-30">
-      <form onSubmit={login} className="flex flex-col gap-4">
+    <div className="flex flex-col min-w-96 py-6 px-6 z-30 col-start-1 col-end-1 row-start-2 row-end-4 md:pl-[40%] md:pr-8 md:col-start-2 md:col-end-4 md:row-start-1">
+      <form onSubmit={login} className="flex flex-col gap-4 pt-14">
         <div>
           <div>
             <label
