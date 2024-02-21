@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import useOutsideClick from "../../hooks/useOutsideClick";
 
@@ -17,7 +17,7 @@ export default function Navbar() {
       onClick={(event) => event.stopPropagation()}
       className="flex flex-col items-start w-full z-50 fixed text-gray-800 bg-white border-b border-b-gray-200 md:py-0 md:flex-row md:items-start md:justify-between drop-shadow"
     >
-      <div className="w-full self-stretch px-8 py-4 flex justify-between md:pb-0 md:w-auto">
+      <Link to="/" className="w-full self-stretch px-8 py-4 flex justify-between md:py-0 md:w-auto">
         <h1
           id="postlab"
           className="flex md:gap-2 md:p-4 items-end font-extrabold cursor-pointer bg-gradient-to-br from-blue-500 to-fuchsia-600 bg-clip-text"
@@ -42,9 +42,9 @@ export default function Navbar() {
         >
           <i className="fa-solid fa-xmark fa-lg"></i>
         </button>
-      </div>
+      </Link>
       <div
-        className={`flex flex-col ${
+        className={`flex flex-col self-stretch ${
           isOpen ? "max-h-screen" : "max-h-0"
         }  gap-4 w-full overflow-hidden md:gap-0 md:max-h-screen md:w-auto md:flex-row md:justify-between transition-all`}
       >
