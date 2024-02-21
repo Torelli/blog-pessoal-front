@@ -1,14 +1,23 @@
 import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 export default function Navbar() {
   const { user, handleLogout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useOutsideClick(handleClickOutside);
+
+  function handleClickOutside() {
+    setIsOpen(false);
+  }
 
   return (
-    <nav className="flex flex-col items-start pt-4 w-full z-50 fixed text-gray-800 bg-white border-b border-b-gray-200 md:py-0 md:flex-row md:items-start md:justify-between drop-shadow">
-      <div className="w-full self-stretch px-8 pb-4 flex justify-between md:pb-0 md:w-auto">
+    <nav
+      onClick={(event) => event.stopPropagation()}
+      className="flex flex-col items-start w-full z-50 fixed text-gray-800 bg-white border-b border-b-gray-200 md:py-0 md:flex-row md:items-start md:justify-between drop-shadow"
+    >
+      <div className="w-full self-stretch px-8 py-4 flex justify-between md:pb-0 md:w-auto">
         <h1
           id="postlab"
           className="flex md:gap-2 md:p-4 items-end font-extrabold cursor-pointer bg-gradient-to-br from-blue-500 to-fuchsia-600 bg-clip-text"
@@ -18,17 +27,20 @@ export default function Navbar() {
         </h1>
         <button
           onClick={() => {
-            if (isOpen) {
-              setIsOpen(false);
-            } else {
-              setIsOpen(true);
-            }
+            setIsOpen(true);
           }}
-          className="text-gray-800 md:hidden hover:bg-gray-100 rounded-lg px-2"
+          className={`${
+            isOpen && "hidden"
+          } text-gray-800 md:hidden hover:bg-gray-100 rounded-lg px-2`}
         >
-          <i
-            className={`fa-solid  ${isOpen ? "fa-xmark" : "fa-bars"} fa-lg`}
-          ></i>
+          <i className="fa-solid fa-bars fa-lg"></i>
+        </button>
+        <button
+          className={`${
+            !isOpen && "hidden"
+          } text-gray-800 md:hidden hover:bg-gray-100 rounded-lg px-2`}
+        >
+          <i className="fa-solid fa-xmark fa-lg"></i>
         </button>
       </div>
       <div
@@ -36,7 +48,10 @@ export default function Navbar() {
           isOpen ? "max-h-screen" : "max-h-0"
         }  gap-4 w-full overflow-hidden md:gap-0 md:max-h-screen md:w-auto md:flex-row md:justify-between transition-all`}
       >
-        <ul className="flex flex-col md:flex-row items-start md:items-center font-bold">
+        <ul
+          ref={ref}
+          className="flex flex-col md:flex-row items-start md:items-center font-bold"
+        >
           <li className="w-full">
             <NavLink
               to={"/"}
