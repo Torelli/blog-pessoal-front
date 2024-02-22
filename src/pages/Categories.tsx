@@ -36,7 +36,7 @@ export default function Categories() {
       }
     }
     getCategories();
-  }, [categories.length, handleLogout, token]);
+  }, [categories.length]);
 
   return (
     <>
@@ -48,12 +48,25 @@ export default function Categories() {
           {isLoading ? (
             <LoadingCategoryCardContainer />
           ) : categories.length === 0 ? (
-            <CreateCategoryButton />
+            <>
+              {user.admin ? (
+                <CreateCategoryButton
+                  useCategories={{ categories, setCategories }}
+                />
+              ) : (
+                <h3 className="w-full text-center text-xl font-bold py-4 px-8 md:text-4xl md:mt-12">
+                  No categories yet...
+                </h3>
+              )}
+            </>
           ) : (
             <>
-              <CreateCategoryButton
-                useCategories={{ categories, setCategories }}
-              />
+              {user.admin && (
+                <CreateCategoryButton
+                  useCategories={{ categories, setCategories }}
+                />
+              )}
+
               {categories.map((category) => (
                 <CategoryCard key={category.id} category={category} />
               ))}

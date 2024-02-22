@@ -11,6 +11,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     email: "",
     password: "",
     picture: "",
+    isAdmin: false,
     token: "",
   };
   const sessionUser: () => UserLogin = () => {
@@ -42,6 +43,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       email: "",
       password: "",
       picture: "",
+      isAdmin: false,
       token: "",
     });
     sessionStorage.clear();

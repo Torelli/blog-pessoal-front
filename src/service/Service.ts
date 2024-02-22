@@ -18,6 +18,7 @@ export async function login(
   const response = await axios.post(url, data);
   setUser(response.data);
   sessionStorage.setItem("userLogin", JSON.stringify(response.data));
+  console.log(response.data);
   return response.data;
 }
 
