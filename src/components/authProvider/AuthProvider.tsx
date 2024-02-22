@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AuthProviderProps from "../../model/AuthProviderProps";
 import UserLogin from "../../model/UserLogin";
-import { login } from "../../service/UserService";
+import { login } from "../../service/Service";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export default function AuthProvider({ children }: AuthProviderProps) {

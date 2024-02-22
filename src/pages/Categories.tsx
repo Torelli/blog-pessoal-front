@@ -1,10 +1,42 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import CategoryCard from "../components/cards/CategoryCard";
 import CreateCategoryButton from "../components/cards/CreateCategoryButton";
 import { AuthContext } from "../contexts/AuthContext";
+import { find } from "../service/Service";
+import { useNavigate } from "react-router-dom";
+import Category from "../model/Category";
+import LoadingCategoryCardContainer from "../components/cards/LoadingCategoryCardContainer";
 
 export default function Categories() {
-  const { user } = useContext(AuthContext);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { user, handleLogout } = useContext(AuthContext);
+  const token = user.token;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token === "") navigate("/login");
+  }, [token, navigate]);
+
+  useEffect(() => {
+    async function getCategories() {
+      try {
+        setIsLoading(true);
+        await find("/temas", setCategories, {
+          headers: { Authorization: token },
+        });
+        setIsLoading(false);
+      } catch (error: any) {
+        if (error.toString().includes("403")) {
+          handleLogout();
+        }
+        setIsLoading(false);
+      }
+    }
+    getCategories();
+  }, [categories.length, handleLogout, token]);
 
   return (
     <>
@@ -13,14 +45,20 @@ export default function Categories() {
           Explore our categories!
         </h2>
         <div className="p-4 grid grid-cols-[repeat(auto-fill,_minmax(250px,1fr))] auto-rows-[minmax(250px,_1fr)] gap-6">
-          {user.token !== "" && <CreateCategoryButton />}
-
-          <CategoryCard title="teste" />
-          <CategoryCard title="teste1" />
-          <CategoryCard title="teste2" />
-          <CategoryCard title="teste3" />
-          <CategoryCard title="teste4" />
-          <CategoryCard title="teste5" />
+          {isLoading ? (
+            <LoadingCategoryCardContainer />
+          ) : categories.length === 0 ? (
+            <CreateCategoryButton />
+          ) : (
+            <>
+              <CreateCategoryButton
+                useCategories={{ categories, setCategories }}
+              />
+              {categories.map((category) => (
+                <CategoryCard key={category.id} category={category} />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </>

@@ -15,9 +15,9 @@ export default function Navbar() {
   return (
     <nav
       onClick={(event) => event.stopPropagation()}
-      className="flex flex-col items-start w-full z-50 fixed text-gray-800 bg-white border-b border-b-gray-200 md:py-0 md:flex-row md:items-start md:justify-between drop-shadow"
+      className="flex flex-col items-start w-full z-50 fixed text-gray-800 bg-white border-b border-b-gray-200 md:py-0 md:flex-row md:items-center md:justify-between drop-shadow"
     >
-      <div className="w-full self-stretch px-8 py-4 flex justify-between md:py-0 md:w-auto">
+      <div className="w-full px-8 py-4 flex justify-between md:items-center md:self-stretch md:py-0 md:w-auto">
         <Link to="/">
           <h1
             id="postlab"
@@ -46,9 +46,9 @@ export default function Navbar() {
         </button>
       </div>
       <div
-        className={`flex flex-col self-stretch ${
+        className={`flex flex-col ${
           isOpen ? "max-h-screen" : "max-h-0"
-        }  gap-4 w-full overflow-hidden md:gap-0 md:max-h-screen md:w-auto md:flex-row md:justify-between transition-all`}
+        }  gap-4 w-full overflow-hidden md:gap-0 md:max-h-full md:h-[4.5rem] md:w-auto md:flex-row md:justify-between transition-all`}
       >
         <ul
           ref={ref}
@@ -68,23 +68,32 @@ export default function Navbar() {
               Home
             </NavLink>
           </li>
-          <li className="w-full">
-            <NavLink
-              to={"/categories"}
-              className={({ isActive, isPending }) =>
-                isActive
-                  ? "block w-full px-8 py-4 md:py-6 bg-gray-100"
-                  : isPending
-                  ? "block w-full px-8 py-4 md:py-6 animate-pulse"
-                  : "block w-full px-8 py-4 md:py-6 hover:bg-gray-100"
-              }
-            >
-              Explore
-            </NavLink>
-          </li>
           {user.token !== "" && (
             <>
-              <li className="w-full">Profile</li>
+              <li className="w-full">
+                <NavLink
+                  to={"/categories"}
+                  className={({ isActive, isPending }) =>
+                    isActive
+                      ? "block w-full px-8 py-4 md:py-6 bg-gray-100"
+                      : isPending
+                      ? "block w-full px-8 py-4 md:py-6 animate-pulse"
+                      : "block w-full px-8 py-4 md:py-6 hover:bg-gray-100"
+                  }
+                >
+                  Explore
+                </NavLink>
+              </li>
+              <li className="w-full"> <NavLink
+                to={"/profile"}
+                className={({ isActive, isPending }) =>
+                  isActive
+                    ? "block w-full px-8 py-4 md:py-6 bg-gray-100"
+                    : isPending
+                    ? "block w-full px-8 py-4 md:py-6 animate-pulse"
+                    : "block w-full px-8 py-4 md:py-6 hover:bg-gray-100"
+                }
+              >Profile</NavLink></li>
             </>
           )}
           <li className="w-full">
@@ -103,8 +112,14 @@ export default function Navbar() {
               </NavLink>
             ) : (
               <NavLink
-                to={"/"}
-                className="hover:border-b-2 hover:border-gray-200"
+                to={"/logout"}
+                className={({ isActive, isPending }) =>
+                  isActive
+                    ? "whitespace-nowrap block w-full px-8 py-4 md:py-6 bg-gray-100"
+                    : isPending
+                    ? "whitespace-nowrap block w-full px-8 py-4 md:py-6 animate-pulse"
+                    : "whitespace-nowrap block w-full px-8 py-4 md:py-6 hover:bg-gray-100"
+                }
                 onClick={handleLogout}
               >
                 Log out

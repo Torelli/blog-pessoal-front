@@ -6,9 +6,11 @@ import Root from "./components/root/Root.tsx";
 import Home from "./pages/Home.tsx";
 import Credentials from "./pages/Credentials.tsx";
 import SignUpForm, { createNewUser } from "./components/forms/SignUpForm.tsx";
-import LoginForm, { loginAction } from "./components/forms/LoginForm.tsx";
+import LoginForm from "./components/forms/LoginForm.tsx";
 import AuthProvider from "./components/authProvider/AuthProvider.tsx";
 import Categories from "./pages/Categories.tsx";
+import Logout from "./pages/Logout.tsx";
+import CategoryContainer from "./pages/CategoryContainer.tsx";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +33,16 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path:'/logout',
+        element: <Logout />
+      },
+      {
         path:"/categories",
         element: <Categories />
+      },
+      {
+        path: "/categories/:id",
+        element:<CategoryContainer />
       }
     ],
   },
