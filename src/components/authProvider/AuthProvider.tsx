@@ -1,18 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthProviderProps from "../../model/AuthProviderProps";
 import UserLogin from "../../model/UserLogin";
 import { login } from "../../service/Service";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<UserLogin>({
+  const initialUser: UserLogin = {
     id: 0,
     name: "",
     email: "",
     password: "",
     picture: "",
     token: "",
-  });
+  };
+  const sessionUser: () => UserLogin = () => {
+    return JSON.parse(
+      sessionStorage.getItem("userLogin") || JSON.stringify(initialUser)
+    ) as UserLogin;
+  };
+  const [user, setUser] = useState<UserLogin>(sessionUser);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,7 +44,16 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       picture: "",
       token: "",
     });
+    sessionStorage.clear();
   }
+
+  useEffect(() => {
+    const persistedUserLogin: UserLogin = JSON.parse(
+      sessionStorage.getItem("userLogin") || JSON.stringify(initialUser)
+    );
+    if (persistedUserLogin.token !== "") setUser(persistedUserLogin);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{ user, handleLogin, handleLogout, isLoading }}
