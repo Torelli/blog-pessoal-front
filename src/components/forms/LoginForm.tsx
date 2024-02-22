@@ -39,7 +39,7 @@ export default function LoginForm() {
 
   return (
     <div className="flex flex-col min-w-96 py-6 px-6 z-30 col-start-1 col-end-1 row-start-2 row-end-4 md:pl-[40%] md:pr-8 md:col-start-2 md:col-end-4 md:row-start-1">
-      <form onSubmit={login} className="flex flex-col gap-4 pt-14">
+      <form onSubmit={login} className="flex flex-col gap-4 pt-14 md:pt-32">
         <div>
           <div>
             <label
