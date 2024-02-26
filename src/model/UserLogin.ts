@@ -1,9 +1,9 @@
 export default interface UserLogin {
   id: number;
-  name: string;
-  email: string;
-  picture: string;
-  password: string;
+  nome: string;
+  usuario: string;
+  foto: string;
+  senha: string;
   admin: boolean;
   token: string;
 }

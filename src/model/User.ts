@@ -6,6 +6,6 @@ export default interface User {
   usuario: string;
   foto: string;
   senha: string;
-  isAdmin?: boolean;
+  admin?: boolean;
   post?: Post | null;
 }
