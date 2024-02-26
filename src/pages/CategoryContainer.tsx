@@ -4,6 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { find } from "../service/Service";
 import CategoryAdmin from "../components/category/CategoryAdmin";
+import PostCard from "../components/cards/PostCard";
 
 export default function CategoryContainer() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ export default function CategoryContainer() {
   }, [handleLogout, token, id]);
 
   return (
-    <div className="w-full px-8 py-24">
+    <div className="w-full py-24 md:px-8">
       {user.admin ? (
         <CategoryAdmin
           category={category}
@@ -52,11 +53,13 @@ export default function CategoryContainer() {
         <h2
           className={`${
             isLoading && "w-32 py-6 bg-gray-200 animate-pulse"
-          } text-4xl font-bold`}
+          } text-4xl font-bold ml-4 md:px-0`}
         >
           {category.descricao}
         </h2>
       )}
+      <div className="mt-12 flex flex-col gap-4 items-center-justify-center w-full">
+      </div>
     </div>
   );
 }

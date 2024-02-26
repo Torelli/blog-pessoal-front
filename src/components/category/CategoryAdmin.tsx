@@ -55,7 +55,7 @@ export default function CategoryAdmin({
   }
   return (
     <>
-      <div className="flex gap-4">
+      <div className={`flex gap-4 ${isLoading && "pl-4"}`}>
         {btnClicked ? (
           <input
             onChange={handleCategory}
@@ -72,7 +72,7 @@ export default function CategoryAdmin({
           <h2
             className={`${
               isLoading && "w-32 py-6 bg-gray-200 animate-pulse"
-            } text-4xl font-bold`}
+            } text-4xl font-bold px-4 md:px-0`}
           >
             {category.descricao}
           </h2>
