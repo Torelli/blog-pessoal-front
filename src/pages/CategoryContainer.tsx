@@ -10,10 +10,8 @@ export default function CategoryContainer() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams<{ id: string }>();
-  const [category, setCategory] = useState<Category>({
-    id: parseFloat(id as string),
-    descricao: "",
-  });
+  const [category, setCategory] = useState<Category>({} as Category);
+  const posts = category.postagens;
 
   const { user, handleLogout } = useContext(AuthContext);
   const token = user.token;
@@ -58,8 +56,14 @@ export default function CategoryContainer() {
           {category.descricao}
         </h2>
       )}
-      <div className="mt-12 flex flex-col gap-4 items-center-justify-center w-full">
-      </div>
+      <div className="mt-12 flex flex-col gap-4 items-center-justify-center w-full"></div>
+      {posts != null && posts.length > 0 ? (
+        posts.map((post) => {
+          return <PostCard post={post} />;
+        })
+      ) : (
+        <h3 className="flex flex-col gap-12 text-center text-3xl mt-16 text-gray-800"><i className="fa-regular fa-face-frown fa-2xl"></i>No posts yet...</h3>
+      )}
     </div>
   );
 }
