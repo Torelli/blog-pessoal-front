@@ -22,3 +22,12 @@ span#postlab:hover {
 .icon:hover {
   -webkit-text-fill-color: transparent;
 }
+
+.next,
+.previous {
+  padding-block: 0.5rem;
+}
+
+.selected {
+  background-color: rgb(243 244 246);
+}

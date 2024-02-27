@@ -5,11 +5,12 @@ import LoadingPostCard from "../components/cards/LoadingPostCard";
 import { find } from "../service/Service";
 import Post from "../model/Post";
 import PostCard from "../components/cards/PostCard";
+import PaginatedItems from "../components/pagination/PaginatedItems";
 
 export default function FreshPosts() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [posts, setPosts] = useState<Post[]>([] as Post[])
+  const [posts, setPosts] = useState<Post[]>([] as Post[]);
 
   const { user, handleLogout } = useContext(AuthContext);
   const token = user.token;
@@ -33,14 +34,12 @@ export default function FreshPosts() {
         setIsLoading(false);
       }
     }
-    getPosts()
+    getPosts();
   }, [posts.length]);
 
   return (
     <div className="w-full py-24 md:px-8 md:min-h-[90vh]">
-      <h2
-        className="text-4xl font-bold ml-4 md:px-0"
-      >
+      <h2 className="text-4xl font-bold ml-4 md:px-0">
         Check out some fresh posts!
       </h2>
       <div className="mt-12 flex flex-col gap-4 items-center justify-center w-full">
@@ -50,9 +49,7 @@ export default function FreshPosts() {
             <LoadingPostCard />
           </>
         ) : posts != null && posts.length > 0 ? (
-          posts.map((post) => {
-            return <PostCard key={post.id} category={post.tema} post={post} />;
-          })
+          <PaginatedItems items={posts} itemsPerPage={3} />
         ) : (
           <h3 className="flex flex-col gap-12 text-center text-3xl mt-16 text-gray-800">
             <i className="fa-regular fa-face-frown fa-2xl"></i>No posts yet...
