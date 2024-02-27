@@ -120,6 +120,7 @@ export default function PostForm({
               onChange={setBodyValue}
               previewOptions={{
                 rehypePlugins: [[rehypeSanitize]],
+                className: "prose max-w-none"
               }}
               aria-required
             />

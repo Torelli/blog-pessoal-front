@@ -165,6 +165,7 @@ export default function PostContainer() {
             />
           ) : (
             <MDEditor.Markdown
+            className="prose max-w-none"
               source={post.texto}
               style={{ whiteSpace: "pre-wrap" }}
             />

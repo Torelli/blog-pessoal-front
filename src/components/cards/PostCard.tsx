@@ -26,7 +26,7 @@ export default function PostCard({ post, category }: { post: Post, category: Cat
         >
           {post.titulo}
         </Link>
-        <p className="mt-2 text-gray-600">{formattedBody}</p>
+        <p className="mt-2 text-gray-600 line-clamp-3">{formattedBody}</p>
       </div>
       <div className="flex justify-between items-center mt-4">
         <Link to={`/posts/${post.id}`} className="text-blue-600 hover:underline">
