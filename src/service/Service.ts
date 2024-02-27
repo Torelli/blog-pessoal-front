@@ -2,6 +2,7 @@ import axios from "axios";
 import User from "../model/User";
 import UserLogin from "../model/UserLogin";
 import Category from "../model/Category";
+import Post from "../model/Post";
 
 axios.defaults.baseURL = "https://blog-pessoal-44fl.onrender.com/";
 
@@ -25,7 +26,9 @@ export async function find(
   url: string,
   setData:
     | React.Dispatch<React.SetStateAction<Category[]>>
-    | React.Dispatch<React.SetStateAction<Category>>,
+    | React.Dispatch<React.SetStateAction<Category>>
+    | React.Dispatch<React.SetStateAction<Post>>
+    | React.Dispatch<React.SetStateAction<Post[]>>,
   header: object
 ) {
   const response = await axios.get(url, header);
@@ -35,7 +38,9 @@ export async function find(
 export async function create(
   url: string,
   data: object,
-  setData: React.Dispatch<React.SetStateAction<Category>>,
+  setData:
+    | React.Dispatch<React.SetStateAction<Category>>
+    | React.Dispatch<React.SetStateAction<Post>>,
   header: object
 ) {
   const response = await axios.post(url, data, header);

@@ -11,6 +11,8 @@ import AuthProvider from "./components/authProvider/AuthProvider.tsx";
 import Categories from "./pages/Categories.tsx";
 import Logout from "./pages/Logout.tsx";
 import CategoryContainer from "./pages/CategoryContainer.tsx";
+import PostContainer from "./pages/PostContainer.tsx";
+import FreshPosts from "./pages/FreshPosts.tsx";
 
 const router = createBrowserRouter([
   {
@@ -33,17 +35,25 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path:'/logout',
-        element: <Logout />
+        path: "/logout",
+        element: <Logout />,
       },
       {
-        path:"/categories",
-        element: <Categories />
+        path: "/categories",
+        element: <Categories />,
       },
       {
         path: "/categories/:id",
-        element:<CategoryContainer />
-      }
+        element: <CategoryContainer />,
+      },
+      {
+        path: "/posts",
+        element: <FreshPosts />
+      },
+      {
+        path: "/posts/:id",
+        element: <PostContainer />
+      },
     ],
   },
 ]);

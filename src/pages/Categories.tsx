@@ -66,7 +66,7 @@ export default function Categories() {
                   useCategories={{ categories, setCategories }}
                 />
               )}
-
+              <CategoryCard />
               {categories.map((category) => (
                 <CategoryCard key={category.id} category={category} />
               ))}

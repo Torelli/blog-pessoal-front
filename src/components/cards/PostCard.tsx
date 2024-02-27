@@ -1,40 +1,48 @@
 import { Link } from "react-router-dom";
 import Post from "../../model/Post";
+import markdownToTxt from "markdown-to-txt";
+import Category from "../../model/Category";
 
-export default function PostCard({ post }: { post: Post }) {
+export default function PostCard({ post, category }: { post: Post, category: Category }) {
+  const dividedBody = post.texto.split("\n");
+  dividedBody.shift();
+  const formattedBody = markdownToTxt(dividedBody.join("\n"));
+
   return (
-    <div className="w-full px-4 flex flex-col items-center justify-center gap-4 md:justify-start">
-      <Link
-        to={`/posts/${post.id}`}
-        className="flex items-center justify-center gap-8 px-4 py-8 border rounded-lg hover:bg-gray-200 transition-all"
-      >
-        <img
-          className="size-16 group-hover:scale-105 transition-all rounded-full"
-          src={`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${post.usuario.nome}`}
-          alt="avatar"
-        />
-        <div className="flex flex-col">
-          <div className="flex justify-between items-center">
-            <h3 className="font-bold text-2xl">{post.titulo}</h3>
-            <p className="text-xs"></p>
-          </div>
-          <p className="line-clamp-3 leading-tight md:line-clamp-2">
-            {post.texto}
-          </p>
-        </div>
-      </Link>
-      <p className="flex justify-between w-full text-xs px-2 text-end md:block">
+    <div className="max-w-4xl w-full px-10 my-4 py-6 bg-white rounded-lg shadow-md">
+      <div className="flex justify-between items-center">
+        <span className="font-light text-gray-600">
+          {new Date(post.data as string).toDateString()}
+        </span>
+        <Link to={`/categories/${category.id}`}
+          className="px-2 py-1 bg-gray-600 text-gray-100 font-bold rounded hover:bg-gray-500"
+        >
+          {category.descricao}
+        </Link>
+      </div>
+      <div className="mt-2">
+        <Link to={`/posts/${post.id}`}
+          className="text-2xl text-gray-700 font-bold hover:text-gray-600"
+        >
+          {post.titulo}
+        </Link>
+        <p className="mt-2 text-gray-600">{formattedBody}</p>
+      </div>
+      <div className="flex justify-between items-center mt-4">
+        <Link to={`/posts/${post.id}`} className="text-blue-600 hover:underline">
+          Read more
+        </Link>
         <div>
-          <span className="italic">By</span>{" "}
-          <Link
-            className="font-semibold hover:underline"
-            to={`/users/${post.usuario.id}`}
-          >
-            {post.usuario.nome}
+          <Link to={`/users/${post.usuario.id}`} className="flex items-center">
+            <img
+              className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+              src={`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${post.usuario.nome}`}
+              alt="avatar"
+            />
+            <h1 className="text-gray-700 font-bold">{post.usuario.nome}</h1>
           </Link>
         </div>
-        <div className="italic">{post.data}</div>
-      </p>
+      </div>
     </div>
   );
 }
