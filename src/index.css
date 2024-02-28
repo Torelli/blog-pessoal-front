@@ -11,7 +11,7 @@
   overflow-x: hidden;
 }
 
-#postlab {
+#postlab, #success-custom-icon, .icons {
   -webkit-text-fill-color: transparent;
 }
 

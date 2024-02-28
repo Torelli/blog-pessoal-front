@@ -32,7 +32,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setIsLoading(false);
     } catch (error) {
       console.log(error);
-      toasts("Inconsistent user data", "error");
+      toasts("Email or password are incorrect", "error");
       setIsLoading(false);
     }
   }

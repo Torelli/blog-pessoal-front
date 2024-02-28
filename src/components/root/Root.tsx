@@ -13,9 +13,9 @@ export default function Root() {
     <>
       <Navbar />
       <Outlet />
+      <ToastContainer />
       <Footer />
       {user.token !== "" && <ModalPostForm />}
-      <ToastContainer />
     </>
   );
 }
