@@ -8,7 +8,7 @@ import LoadingPost from "../components/post/LoadingPost";
 import useOutsideClick from "../hooks/useOutsideClick";
 import PostForm from "../components/forms/PostForm";
 import Category from "../model/Category";
-import ModalDeletePost from "../components/modal/ModalDeletePost";
+import ModalDelete from "../components/modal/ModalDelete";
 
 export default function PostContainer() {
   const { id } = useParams<{ id: string }>();
@@ -165,7 +165,7 @@ export default function PostContainer() {
             />
           ) : (
             <MDEditor.Markdown
-            className="prose max-w-none"
+              className="prose max-w-none"
               source={post.texto}
               style={{ whiteSpace: "pre-wrap" }}
             />
@@ -187,7 +187,14 @@ export default function PostContainer() {
           </div>
         </div>
       )}
-      {isDeleting && <ModalDeletePost openModal={isDeleting} setOpenModal={() => setIsDeleting(false)} handleDelete={deletePost} />}
+      {isDeleting && (
+        <ModalDelete
+          message="Are you sure you want to delete this post?"
+          openModal={isDeleting}
+          setOpenModal={() => setIsDeleting(false)}
+          handleDelete={deletePost}
+        />
+      )}
     </div>
   );
 }

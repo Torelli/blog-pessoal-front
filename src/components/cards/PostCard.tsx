@@ -36,7 +36,7 @@ export default function PostCard({ post, category }: { post: Post, category: Cat
           <Link to={`/users/${post.usuario.id}`} className="flex items-center">
             <img
               className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-              src={`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${post.usuario.nome}`}
+              src={`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${post.usuario.usuario.split("@").shift()}`}
               alt="avatar"
             />
             <h1 className="text-gray-700 font-bold">{post.usuario.nome}</h1>

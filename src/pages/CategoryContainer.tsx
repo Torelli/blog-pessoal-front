@@ -4,7 +4,6 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { find } from "../service/Service";
 import CategoryAdmin from "../components/category/CategoryAdmin";
-import PostCard from "../components/cards/PostCard";
 import LoadingPostCard from "../components/cards/LoadingPostCard";
 import PaginatedItems from "../components/pagination/PaginatedItems";
 

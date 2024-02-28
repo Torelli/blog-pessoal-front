@@ -7,5 +7,5 @@ export default interface User {
   foto: string;
   senha: string;
   admin?: boolean;
-  post?: Post | null;
+  postagens?: Post[] | null;
 }

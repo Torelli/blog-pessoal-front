@@ -1,13 +1,15 @@
-export default function ModalDeletePost({
+export default function ModalDelete({
   openModal,
   setOpenModal,
   handleDelete,
+  message,
 }: {
   openModal: boolean;
   setOpenModal: (value: React.SetStateAction<boolean>) => void;
   handleDelete: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => Promise<void>;
+  message: string;
 }) {
   return (
     <>
@@ -52,9 +54,7 @@ export default function ModalDeletePost({
                 </button>
               </div>
               <div className="bg-white pb-4 px-6 pt-0 flex flex-col items-center mt-2 md:px-6 md:py-12">
-                <div className="text-lg">
-                  Are you sure you want to delete this post?
-                </div>
+                <div className="text-lg">{message}</div>
               </div>
               <div className="bg-gray-100 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button

@@ -13,6 +13,8 @@ import Logout from "./pages/Logout.tsx";
 import CategoryContainer from "./pages/CategoryContainer.tsx";
 import PostContainer from "./pages/PostContainer.tsx";
 import FreshPosts from "./pages/FreshPosts.tsx";
+import Profile from "./pages/Profile.tsx";
+import Settings from "./pages/Settings.tsx";
 
 const router = createBrowserRouter([
   {
@@ -48,11 +50,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/posts",
-        element: <FreshPosts />
+        element: <FreshPosts />,
       },
       {
         path: "/posts/:id",
-        element: <PostContainer />
+        element: <PostContainer />,
+      },
+      {
+        path: "/users/:id",
+        element: <Profile />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
       },
     ],
   },

@@ -6,10 +6,12 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 export default function Navbar() {
   const { user, handleLogout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [userDropdown, setUserDropdown] = useState(false);
   const ref = useOutsideClick(handleClickOutside);
 
   function handleClickOutside() {
     setIsOpen(false);
+    setUserDropdown(false);
   }
 
   return (
@@ -57,6 +59,9 @@ export default function Navbar() {
           <li className="w-full">
             <NavLink
               to={"/"}
+              onClick={() => {
+                setUserDropdown(false);
+              }}
               className={({ isActive, isPending }) =>
                 isActive
                   ? "block w-full px-8 py-4 md:py-6 bg-gray-100"
@@ -73,6 +78,9 @@ export default function Navbar() {
               <li className="w-full">
                 <NavLink
                   to={"/categories"}
+                  onClick={() => {
+                    setUserDropdown(false);
+                  }}
                   className={({ isActive, isPending }) =>
                     isActive
                       ? "block w-full px-8 py-4 md:py-6 bg-gray-100"
@@ -84,20 +92,92 @@ export default function Navbar() {
                   Explore
                 </NavLink>
               </li>
-              <li className="w-full"> <NavLink
-                to={"/profile"}
-                className={({ isActive, isPending }) =>
-                  isActive
-                    ? "block w-full px-8 py-4 md:py-6 bg-gray-100"
-                    : isPending
-                    ? "block w-full px-8 py-4 md:py-6 animate-pulse"
-                    : "block w-full px-8 py-4 md:py-6 hover:bg-gray-100"
-                }
-              >Profile</NavLink></li>
+              <li className="w-full">
+                {" "}
+                {userDropdown ? (
+                  <button
+                    id="dropdownDividerButton"
+                    data-dropdown-toggle="dropdownDivider"
+                    className="flex items-center md:justify-center w-full px-8 py-4 md:py-6 hover:bg-gray-100 text-nowrap"
+                    type="button"
+                    onClick={() => {
+                      setUserDropdown(false);
+                    }}
+                  >
+                    <img
+                      className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+                      src={`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${user.usuario
+                        .split("@")
+                        .shift()}`}
+                      alt="avatar"
+                    />
+                    {user.usuario.split("@").shift()}
+                    <i className="fa-solid fa-chevron-up fa-xs ml-2"></i>
+                  </button>
+                ) : (
+                  <button
+                    id="dropdownDividerButton"
+                    data-dropdown-toggle="dropdownDivider"
+                    className="flex items-center md:justify-center w-full px-8 py-4 md:py-6 hover:bg-gray-100 text-nowrap"
+                    type="button"
+                    onClick={() => {
+                      setUserDropdown(true);
+                    }}
+                  >
+                    <img
+                      className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+                      src={`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${user.usuario
+                        .split("@")
+                        .shift()}`}
+                      alt="avatar"
+                    />
+                    {user.usuario.split("@").shift()}
+                    <i className="fa-solid fa-chevron-down fa-xs ml-2"></i>
+                  </button>
+                )}
+                {/* Dropdown menu */}
+                <div
+                  id="dropdownDivider"
+                  className={`z-10 ${
+                    userDropdown ? "" : "hidden"
+                  } bg-white divide-y divide-gray-100 rounded-b-md shadow w-full md:w-60 md:absolute md:top-[4.6rem] md:right-10`}
+                >
+                  <ul
+                    className="py-2 text-sm text-gray-700"
+                    aria-labelledby="dropdownDividerButton"
+                  >
+                    <li>
+                      <NavLink
+                        to={`users/${user.id}`}
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        Profile
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to={"/settings"}
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        Settings
+                      </NavLink>
+                    </li>
+                  </ul>
+                  <div className="py-2">
+                    <NavLink
+                      to={"/logout"}
+                      className="block px-4 py-2 hover:bg-gray-100 text-sm text-gray-700"
+                      onClick={handleLogout}
+                    >
+                      Log out
+                    </NavLink>
+                  </div>
+                </div>
+              </li>
             </>
           )}
           <li className="w-full">
-            {user.token === "" ? (
+            {user.token === "" && (
               <NavLink
                 to={"/login"}
                 className={({ isActive, isPending }) =>
@@ -109,20 +189,6 @@ export default function Navbar() {
                 }
               >
                 Login
-              </NavLink>
-            ) : (
-              <NavLink
-                to={"/logout"}
-                className={({ isActive, isPending }) =>
-                  isActive
-                    ? "whitespace-nowrap block w-full px-8 py-4 md:py-6 bg-gray-100"
-                    : isPending
-                    ? "whitespace-nowrap block w-full px-8 py-4 md:py-6 animate-pulse"
-                    : "whitespace-nowrap block w-full px-8 py-4 md:py-6 hover:bg-gray-100"
-                }
-                onClick={handleLogout}
-              >
-                Log out
               </NavLink>
             )}
           </li>

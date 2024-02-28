@@ -28,7 +28,8 @@ export async function find(
     | React.Dispatch<React.SetStateAction<Category[]>>
     | React.Dispatch<React.SetStateAction<Category>>
     | React.Dispatch<React.SetStateAction<Post>>
-    | React.Dispatch<React.SetStateAction<Post[]>>,
+    | React.Dispatch<React.SetStateAction<Post[]>>
+    | React.Dispatch<React.SetStateAction<User>>,
   header: object
 ) {
   const response = await axios.get(url, header);
@@ -40,10 +41,12 @@ export async function create(
   data: object,
   setData:
     | React.Dispatch<React.SetStateAction<Category>>
-    | React.Dispatch<React.SetStateAction<Post>>,
+    | React.Dispatch<React.SetStateAction<Post>>
+    | React.Dispatch<React.SetStateAction<User>>,
   header: object
 ) {
   const response = await axios.post(url, data, header);
+  console.log(response);
   setData(response.data);
 }
 
