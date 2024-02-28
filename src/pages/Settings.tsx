@@ -6,12 +6,13 @@ import { AuthContext } from "../contexts/AuthContext";
 import User from "../model/User";
 import LoadingPost from "../components/post/LoadingPost";
 import { toasts } from "../util/toasts";
+import UserLogin from "../model/UserLogin";
 
 export default function Settings() {
-    const { user, handleLogout } = useContext(AuthContext);
-    const token = user.token;
+  const { user, handleLogout, handleLogin } = useContext(AuthContext);
+  const token = user.token;
 
-  const userSettings = { ...user as User };
+  const userSettings = { ...(user as User) };
   if (user.foto === null) userSettings.foto = "";
 
   const [isPublicOpen, setIsPublicOpen] = useState(true);
@@ -19,7 +20,7 @@ export default function Settings() {
   const [isLoading, setIsLoading] = useState(false);
   const [changePicture, setChangePicture] = useState(false);
   const [newUser, setNewUser] = useState<User>(userSettings as User);
-  const avatar = user.usuario;
+  const avatar = newUser.usuario;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function Settings() {
   }, [token, navigate]);
 
   async function handleUpdate(e: ChangeEvent<HTMLFormElement>) {
+    console.log(user);
     e.preventDefault();
     try {
       setIsLoading(true);
@@ -37,8 +39,7 @@ export default function Settings() {
       });
       setIsLoading(false);
       setChangePicture(false);
-      handleLogout();
-      //handleLogin(newUser as UserLogin);
+      handleLogin(newUser as UserLogin);
     } catch (error) {
       if (error.toString().includes("403")) handleLogout();
       else {
@@ -110,9 +111,12 @@ export default function Settings() {
                         <img
                           className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-blue-300"
                           src={
-                            user.foto != undefined || user.foto != null
-                              ? user.foto
-                              : `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${avatar != undefined && avatar.split("@").shift()}`
+                            newUser.foto != ""
+                              ? newUser.foto
+                              : `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${
+                                  avatar != undefined &&
+                                  avatar.split("@").shift()
+                                }`
                           }
                           alt="Bordered avatar"
                         />
@@ -139,6 +143,7 @@ export default function Settings() {
                         <button
                           type="button"
                           className="py-3.5 px-7 text-base font-medium text-blue-900 focus:outline-none bg-white rounded-lg border border-blue-200 hover:bg-blue-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-blue-200 "
+                          onClick={() => setNewUser({ ...newUser, foto: '' })}
                         >
                           Delete picture
                         </button>
@@ -174,11 +179,31 @@ export default function Settings() {
                         </label>
                         <input
                           type="email"
-                          id="email"
+                          id="usuario"
+                          name="usuario"
                           className="bg-blue-50 border border-blue-300 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                           placeholder="your.email@mail.com"
                           defaultValue={newUser.usuario}
                           onChange={updateState}
+                          required
+                        />
+                      </div>
+                      <div className="mb-2 sm:mb-6">
+                        <label
+                          htmlFor="email"
+                          className="block mb-2 text-sm font-medium text-blue-900"
+                        >
+                          You must enter your password to make changes
+                        </label>
+                        <input
+                          type="password"
+                          id="senha"
+                          name="senha"
+                          className="bg-blue-50 border border-blue-300 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                          placeholder="*************"
+                          defaultValue={newUser.senha}
+                          onChange={updateState}
+                          autoComplete="current-password"
                           required
                         />
                       </div>

@@ -14,12 +14,11 @@ export async function createUser(url: string, data: User) {
 export async function updateUser(
   url: string,
   data: object,
-  setUser:
-    | React.Dispatch<React.SetStateAction<User>>,
+  setUser: React.Dispatch<React.SetStateAction<User>>,
   header: object
 ) {
   const response = await axios.put(url, data, header);
-  console.log(response);
+  response.data.senha = ""
   setUser(response.data);
   sessionStorage.setItem("userLogin", JSON.stringify(response.data));
 }
@@ -30,6 +29,7 @@ export async function login(
   setUser: React.Dispatch<React.SetStateAction<UserLogin>>
 ) {
   const response = await axios.post(url, data);
+  console.log(response);
   setUser(response.data);
   sessionStorage.setItem("userLogin", JSON.stringify(response.data));
   return response.data;

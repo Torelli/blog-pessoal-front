@@ -11,11 +11,13 @@ export default function Profile() {
   const { user, handleLogout } = useContext(AuthContext);
   const token = user.token;
 
+  const initialUser = { ...(user as User) };
+  if (user.foto === null) initialUser.foto = "";
+
   const { id } = useParams<{ id: string }>();
 
-  const [userProfile, setUserProfile] = useState<User>({} as User);
+  const [userProfile, setUserProfile] = useState<User>(initialUser);
   const [isLoading, setIsLoading] = useState(false);
-  const [avatarSeed, setAvatarSeed] = useState("");
 
   useEffect(() => {
     async function getUser() {
@@ -35,26 +37,26 @@ export default function Profile() {
     getUser();
   }, [handleLogout, token, id]);
 
-  useEffect(() => {
-    if (userProfile.usuario != undefined)
-      setAvatarSeed(userProfile.usuario.split("@").shift() as string);
-  }, [userProfile.usuario]);
-
   return (
     <div className="w-full py-24 md:px-8 md:min-h-[90vh]">
       <div className="flex items-center">
         {isLoading ? (
           <div className="mx-4 size-14 rounded-full bg-gray-200 animate-pulse"></div>
         ) : (
-          <img
-            className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-            src={
-              avatarSeed !== undefined
-                ? `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${avatarSeed}`
-                : ""
-            }
-            alt="avatar"
-          />
+          user.token !== "" && (
+            <img
+              className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+              src={
+                user.foto != ""
+                  ? user.foto
+                  : `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${
+                      user.usuario != undefined &&
+                      user.usuario.split("@").shift()
+                    }`
+              }
+              alt="avatar"
+            />
+          )
         )}
 
         <h2

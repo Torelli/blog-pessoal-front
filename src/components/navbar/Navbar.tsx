@@ -106,9 +106,14 @@ export default function Navbar() {
                   >
                     <img
                       className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-                      src={`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${user.usuario
-                        .split("@")
-                        .shift()}`}
+                      src={
+                        user.foto != ""
+                          ? user.foto
+                          : `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${
+                              user.usuario != undefined &&
+                              user.usuario.split("@").shift()
+                            }`
+                      }
                       alt="avatar"
                     />
                     {user.usuario.split("@").shift()}
@@ -126,9 +131,14 @@ export default function Navbar() {
                   >
                     <img
                       className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-                      src={`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${user.usuario
-                        .split("@")
-                        .shift()}`}
+                      src={
+                        user.foto != ""
+                          ? user.foto
+                          : `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${
+                              user.usuario != undefined &&
+                              user.usuario.split("@").shift()
+                            }`
+                      }
                       alt="avatar"
                     />
                     {user.usuario.split("@").shift()}
