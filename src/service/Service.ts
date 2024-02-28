@@ -11,6 +11,19 @@ export async function createUser(url: string, data: User) {
   return response.data;
 }
 
+export async function updateUser(
+  url: string,
+  data: object,
+  setUser:
+    | React.Dispatch<React.SetStateAction<User>>,
+  header: object
+) {
+  const response = await axios.put(url, data, header);
+  console.log(response);
+  setUser(response.data);
+  sessionStorage.setItem("userLogin", JSON.stringify(response.data));
+}
+
 export async function login(
   url: string,
   data: object,
@@ -41,8 +54,7 @@ export async function create(
   data: object,
   setData:
     | React.Dispatch<React.SetStateAction<Category>>
-    | React.Dispatch<React.SetStateAction<Post>>
-    | React.Dispatch<React.SetStateAction<User>>,
+    | React.Dispatch<React.SetStateAction<Post>>,
   header: object
 ) {
   const response = await axios.post(url, data, header);

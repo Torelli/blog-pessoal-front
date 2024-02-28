@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import ModalDelete from "../components/modal/ModalDelete";
-import { create, destroy } from "../service/Service";
+import { updateUser, destroy } from "../service/Service";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import User from "../model/User";
@@ -26,11 +26,11 @@ export default function Settings() {
     if (token === "") navigate("/login");
   }, [token, navigate]);
 
-  async function updateUser(e: ChangeEvent<HTMLFormElement>) {
+  async function handleUpdate(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
       setIsLoading(true);
-      await create("/usuarios/atualizar", newUser, setNewUser, {
+      await updateUser("/usuarios/atualizar", newUser, setNewUser, {
         headers: {
           Authorization: token,
         },
@@ -39,7 +39,7 @@ export default function Settings() {
       setChangePicture(false);
       handleLogout();
       //handleLogin(newUser as UserLogin);
-    } catch (error: any) {
+    } catch (error) {
       if (error.toString().includes("403")) handleLogout();
       else {
         toasts("Oops... Something went wrong, try again later", "error");
@@ -57,7 +57,7 @@ export default function Settings() {
         },
       });
       handleLogout();
-    } catch (error: any) {
+    } catch (error) {
       if (error.toString().includes("403")) handleLogout();
       else toasts("Oops... Something went wrong, try again later", "error");
     }
@@ -99,7 +99,7 @@ export default function Settings() {
           </aside>
           <main className="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
             {isPublicOpen ? (
-              <form onSubmit={updateUser} className="p-2 md:p-4">
+              <form onSubmit={handleUpdate} className="p-2 md:p-4">
                 <div className="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
                   <h2 className="pl-6 text-2xl font-bold sm:text-xl">
                     Public Profile
