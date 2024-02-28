@@ -3,15 +3,16 @@ import AuthProviderProps from "../../model/AuthProviderProps";
 import UserLogin from "../../model/UserLogin";
 import { login } from "../../service/Service";
 import { AuthContext } from "../../contexts/AuthContext";
+import { toasts } from "../../util/toasts";
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const initialUser: UserLogin = {
     id: 0,
-    name: "",
-    email: "",
-    password: "",
-    picture: "",
-    isAdmin: false,
+    nome: "",
+    usuario: "",
+    senha: "",
+    foto: "",
+    admin: false,
     token: "",
   };
   const sessionUser: () => UserLogin = () => {
@@ -26,12 +27,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   async function handleLogin(userLogin: UserLogin) {
     setIsLoading(true);
     try {
-      await login("usuarios/login", userLogin, setUser);
-      alert("User logged succesfully!");
+      const response = await login("usuarios/login", userLogin, setUser);
+      toasts(`Welcome back, ${response.nome}!`, "success");
       setIsLoading(false);
     } catch (error) {
       console.log(error);
-      alert("Inconsistent user data");
+      toasts("Inconsistent user data", "error");
       setIsLoading(false);
     }
   }
@@ -39,11 +40,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   function handleLogout() {
     setUser({
       id: 0,
-      name: "",
-      email: "",
-      password: "",
-      picture: "",
-      isAdmin: false,
+      nome: "",
+      usuario: "",
+      senha: "",
+      foto: "",
+      admin: false,
       token: "",
     });
     sessionStorage.clear();

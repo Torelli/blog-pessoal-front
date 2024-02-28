@@ -4,6 +4,7 @@ import Footer from "../footer/Footer";
 import ModalPostForm from "../modal/ModalPostForm";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { ToastContainer } from "react-toastify";
 
 export default function Root() {
   const { user } = useContext(AuthContext);
@@ -14,6 +15,7 @@ export default function Root() {
       <Outlet />
       <Footer />
       {user.token !== "" && <ModalPostForm />}
+      <ToastContainer />
     </>
   );
 }

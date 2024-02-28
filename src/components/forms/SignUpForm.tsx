@@ -1,6 +1,7 @@
 import { Form, redirect } from "react-router-dom";
 import { createUser } from "../../service/Service";
 import User from "../../model/User";
+import { toasts } from "../../util/toasts";
 
 export async function createNewUser({ request }) {
   const formData = await request.formData();
@@ -9,11 +10,10 @@ export async function createNewUser({ request }) {
     delete user.passwordConfirm;
     try {
       const response = await createUser("usuarios/cadastrar", user as User);
-      console.log(response);
-      alert(`User ${response.nome} created successfully!`);
+      toasts(`Welcome aboard, ${response.nome}!`, "success");
       return redirect("/login");
     } catch (error) {
-      alert("Error signing up");
+      toasts("Error signing up", "error");
       console.log(error);
     }
   }

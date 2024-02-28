@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import User from "../model/User";
 import LoadingPost from "../components/post/LoadingPost";
+import { toasts } from "../util/toasts";
 
 export default function Settings() {
     const { user, handleLogout } = useContext(AuthContext);
@@ -41,7 +42,7 @@ export default function Settings() {
     } catch (error: any) {
       if (error.toString().includes("403")) handleLogout();
       else {
-        alert("Unknown error");
+        toasts("Oops... Something went wrong, try again later", "error");
         console.log(error);
       }
       setIsLoading(false);
@@ -58,7 +59,7 @@ export default function Settings() {
       handleLogout();
     } catch (error: any) {
       if (error.toString().includes("403")) handleLogout();
-      else alert("Unknown error");
+      else toasts("Oops... Something went wrong, try again later", "error");
     }
   }
 
