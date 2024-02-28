@@ -4,7 +4,7 @@ import UserLogin from "../model/UserLogin";
 import Category from "../model/Category";
 import Post from "../model/Post";
 
-axios.defaults.baseURL = "https://blog-pessoal-44fl.onrender.com/";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 export async function createUser(url: string, data: User) {
   const response = await axios.post(url, data);
