@@ -18,7 +18,7 @@ export async function updateUser(
   header: object
 ) {
   const response = await axios.put(url, data, header);
-  response.data.senha = ""
+  response.data.senha = "";
   setUser(response.data);
   sessionStorage.setItem("userLogin", JSON.stringify(response.data));
 }
@@ -46,6 +46,9 @@ export async function find(
   header: object
 ) {
   const response = await axios.get(url, header);
+  if (url.includes("/usuarios/")) {
+    if (response.data.foto === null) response.data.foto = "";
+  }
   setData(response.data);
 }
 

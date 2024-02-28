@@ -11,12 +11,9 @@ export default function Profile() {
   const { user, handleLogout } = useContext(AuthContext);
   const token = user.token;
 
-  const initialUser = { ...(user as User) };
-  if (user.foto === null) initialUser.foto = "";
-
   const { id } = useParams<{ id: string }>();
 
-  const [userProfile, setUserProfile] = useState<User>(initialUser);
+  const [userProfile, setUserProfile] = useState<User>({} as User);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -47,11 +44,11 @@ export default function Profile() {
             <img
               className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
               src={
-                user.foto != ""
-                  ? user.foto
+                userProfile.foto != ""
+                  ? userProfile.foto
                   : `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${
-                      user.usuario != undefined &&
-                      user.usuario.split("@").shift()
+                      userProfile.usuario != undefined &&
+                      userProfile.usuario.split("@").shift()
                     }`
               }
               alt="avatar"
